@@ -1,15 +1,15 @@
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/joaosoarees/2sow-teste">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/joaosoarees/teste-2sow">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/joaosoarees/2sow-teste">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/joaosoarees/teste-2sow">
   
-  <a href="https://github.com/joaosoarees/2sow-teste/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/joaosoarees/2sow-teste">
+  <a href="https://github.com/joaosoarees/teste-2sow/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/joaosoarees/teste-2sow">
   </a>
 
-  <a href="https://github.com/joaosoarees/2sow-teste/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/joaosoarees/2sow-teste">
+  <a href="https://github.com/joaosoarees/teste-2sow/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/joaosoarees/teste-2sow">
   </a>
 </p>
 
