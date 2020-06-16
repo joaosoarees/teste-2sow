@@ -1,0 +1,56 @@
+{
+  "usuarios": [
+    {
+      "name": "Breno Rafael",
+      "cpf": "318.165.419-81",
+      "email": "breno@breno.com",
+      "endereco": {
+        "cep": "14092-310",
+        "address": "Rua Francisca Martins",
+        "addressNumber": "198",
+        "neighborhood": "Jardim Zara",
+        "city": "Ribeirão Preto"
+      },
+      "id": 4
+    },
+    {
+      "name": "Gabriel Barboza",
+      "cpf": "719.246.918-24",
+      "email": "gabriel@barboza.com",
+      "endereco": {
+        "cep": "14050-500",
+        "address": "Rua Visconde de Taunay",
+        "addressNumber": "45",
+        "neighborhood": "Vila Tibério",
+        "city": "Ribeirão Preto"
+      },
+      "id": 5
+    },
+    {
+      "name": "João Vitor",
+      "cpf": "345.973.057-07",
+      "email": "jsoareez@gmail.com",
+      "endereco": {
+        "cep": "14092-310",
+        "address": "Rua Francisca Martins",
+        "addressNumber": "198",
+        "neighborhood": "Jardim Zara",
+        "city": "Ribeirão Preto"
+      },
+      "id": 8
+    },
+    {
+      "name": "Ademilton Cesar",
+      "cpf": "170.129.487-09",
+      "email": "ademilton@cesar.com",
+      "endereco": {
+        "cep": "14092-500",
+        "address": "Rua Doutor Jacy Chaves",
+        "addressNumber": "54",
+        "neighborhood": "Residencial e Comercial Palmares",
+        "city": "Ribeirão Preto"
+      },
+      "id": 9
+    }
+  ]
+}
