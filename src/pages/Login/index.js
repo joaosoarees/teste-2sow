@@ -31,7 +31,6 @@ export default function Login() {
 
     if(password.length > 4) {
       dispatch(login());
-      localStorage.setItem('token', Math.random());
       swal("Login efetuado com sucesso!", "", "success");
       history.push('/usuarios');
     } else {
