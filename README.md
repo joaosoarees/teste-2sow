@@ -19,7 +19,7 @@
 
 ## Tecnologias
 
-- React
+- React (with Hooks)
 - <a href="https://material-ui.com/" target="_blank">MaterialUI</a>
 - <a href="https://github.com/axios/axios" target="_blank">Axios</a>
 - <a href="https://sweetalert.js.org/guides/" target="_blank">SweetAlert</a>
