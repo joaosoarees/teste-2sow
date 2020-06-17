@@ -3,99 +3,61 @@ import { useHistory } from 'react-router-dom';
 
 import { 
   AppBar, Button, Card, CardActions, CardContent, CssBaseline,
-  Grid, Toolbar, Typography, makeStyles, Container, TextField
+  Grid, Toolbar, Typography, Container, TextField
  } from '@material-ui/core';
 
+import { useStyles, useStylesBar } from './styles';
 import api from '../../services/api';
 import swal from '@sweetalert/with-react'
 import { cpfMask } from '../../utils/cpfMask';
+import { cepMask } from '../../utils/cepMask';
 import Footer from '../../components/Footer';
-
-const useStyles = makeStyles((theme) => ({
-  page: {
-    minHeight: '100vh',
-    flexDirection: 'column',
-    display: 'flex',
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    marginTop: 'auto',
-    padding: theme.spacing(6),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  search: {
-    marginBottom: '50px',
-  }
-}));
-
-const useStylesBar = makeStyles(() => ({
-  bar: {
-    marginBottom: '30px',
-  },
-  button: {
-    marginLeft: '50px',
-    color: '#fff',
-    fontWeight: 900,
-  },
-  title: {
-    flexGrow: 1,
-    color: '#fff',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 500,
-  },
-}));
 
 export default function Users() {
   const classes = useStyles();
   const topClasses = useStylesBar();
-  const token = localStorage.getItem('token');
   const history = useHistory();
 
+  // Hook para armazenar e alterar estado
   const [registers, setRegisters] = useState([]);
-  const [name, setName] = useState();
-  const [cpf, setCpf] = useState();
-  const [email, setEmail] = useState();
-  const [city, setCity] = useState();
+  const [, setName] = useState('');
+  const [, setCpf] = useState('');
+  const [, setEmail] = useState('');
+  const [, setAddress] = useState('');
+  const [, setAddressNumber] = useState('');
+  const [, setCep] = useState('');
+  const [, setNeighborhood] = useState('');
+  const [, setCity] = useState('');
   const [search, setSearch] = useState();
   const [inputSearch, setInputSearch] = useState('');
 
+  // Função para deslogar
   const handleLogout = () => {
-    localStorage.clear();
     history.push('/');
   };
-
+  
+  // Envia o usuário para a tela de Cadastro
   const handleRegister = () => {
     history.push('/form');
   };
 
+  // Pega o valor do input
   function getInputValue(id) {
     return (document.getElementById(id).value);
   };
 
+  // Hook para buscar um registro pelo valor digitado no campo de busca
   useEffect(() => {
     let searchedName = getInputValue('search');
     api.get(`usuarios?q=${searchedName}`).then(response => { setSearch(response.data) });
   }, [inputSearch]);
 
+  // Hook para pegar os registros do nosso db.json em ordem alfabética
   useEffect(() => {
     api.get('usuarios?_sort=name&_order=asc').then(response => { setRegisters(response.data) });
   }, [registers]);
 
+  // Função para buscar o nome digitado do campo de busca e retornar os registros encontrados
   function searchByName(e) {
     e.preventDefault();
     setInputSearch('');
@@ -137,27 +99,23 @@ export default function Users() {
       )
     );
   };
-    
+  
+  // Função para editar um registro
   async function handleEditRegister(id) {
-    setName();
-    setCpf();
-    setEmail();
-    setCity();
-
+    const oldData = await api.get(`usuarios/${id}`);
+    
     async function Submit(e) {
       e.preventDefault();
       
-      const oldData = await api.get(`usuarios/${id}`);
-
       const data = {
         name: getInputValue('name') || oldData.data.name,
         cpf: cpfMask(getInputValue('cpf')) || oldData.data.cpf,
         email: getInputValue('email') || oldData.data.email,
         endereco: {
-          cep: oldData.data.endereco.cep,
-          address: oldData.data.endereco.address,
-          addressNumber: oldData.data.endereco.addressNumber,
-          neighborhood: oldData.data.endereco.neighborhood,
+          cep: cepMask(getInputValue('cep')) || oldData.data.endereco.cep,
+          address: getInputValue('address') || oldData.data.endereco.address,
+          addressNumber: getInputValue('addressNumber') || oldData.data.endereco.addressNumber,
+          neighborhood: getInputValue('neighborhood') || oldData.data.endereco.neighborhood,
           city: getInputValue('city') || oldData.data.endereco.city
         }
       };
@@ -167,12 +125,7 @@ export default function Users() {
         swal("Usuário editado com sucesso!", "", "success");
       } catch (err) {
         swal("Erro!", "", "error")
-      };
-
-      setName();
-      setCpf();
-      setEmail();
-      setCity();
+      }; 
     };
 
     return (
@@ -188,14 +141,14 @@ export default function Users() {
                   name="name"
                   label="Nome"
                   id="name"
-                  value={name}
+                  defaultValue={oldData.data.name}
                   onChange={e => setName(e.target.value)}
                 />
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  inputProps={{maxLength: 11}}
+                  inputProps={{maxLength: 15}}
                   placeholder="exemplo: 12345678900"
                   variant="outlined"
                   fullWidth
@@ -203,7 +156,7 @@ export default function Users() {
                   id="cpf"
                   label="CPF"
                   name="cpf"
-                  value={cpf}
+                  defaultValue={oldData.data.cpf}
                   onChange={e => setCpf(e.target.value)}
                 />
               </Grid>
@@ -216,8 +169,61 @@ export default function Users() {
                   type="string"
                   label="Email"
                   name="email"
-                  value={email}
+                  defaultValue={oldData.data.email}
                   onChange={e => setEmail(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  inputProps={{maxLength: 9}}
+                  variant="outlined"
+                  fullWidth
+                  id="cep"
+                  type="string"
+                  label="CEP"
+                  name="cep"
+                  defaultValue={oldData.data.endereco.cep}
+                  onChange={e => setCep(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="address"
+                  type="string"
+                  label="Endereço"
+                  name="address"
+                  defaultValue={oldData.data.endereco.address}
+                  onChange={e => setAddress(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="addressNumber"
+                  type="string"
+                  label="Número"
+                  name="addressNumber"
+                  defaultValue={oldData.data.endereco.addressNumber}
+                  onChange={e => setAddressNumber(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="neighborhood"
+                  type="string"
+                  label="Bairro"
+                  name="neighborhood"
+                  defaultValue={oldData.data.endereco.neighborhood}
+                  onChange={e => setNeighborhood(e.target.value)}
                 />
               </Grid>
               
@@ -229,7 +235,7 @@ export default function Users() {
                   type="string"
                   fullWidth
                   id="city"
-                  value={city}
+                  defaultValue={oldData.data.endereco.city}
                   onChange={e => setCity(e.target.value)}
                   label="Cidade"
                 />
@@ -251,6 +257,7 @@ export default function Users() {
     );
   };
 
+  // Função para deletar um registro
   async function handleDeleteRegister(id) {
     try {
       await api.delete(`usuarios/${id}`);
@@ -261,7 +268,7 @@ export default function Users() {
     };
   };
 
-  return (token &&
+  return (
     <>
       <div className={classes.page}>
         <CssBaseline />
@@ -307,7 +314,7 @@ export default function Users() {
                 </Button>
               </Grid>
             </form>
-            
+
             <Grid container spacing={4}>
               {registers.map(register => (
                 <Grid item key={register.id} xs={12} sm={6} md={6}>
@@ -339,6 +346,7 @@ export default function Users() {
               ))}
             </Grid>
           </Container>
+
         </main>
         <Footer />
       </div> 

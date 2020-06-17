@@ -1,32 +1,6 @@
 {
   "usuarios": [
     {
-      "name": "Breno Rafael",
-      "cpf": "318.165.419-81",
-      "email": "breno@breno.com",
-      "endereco": {
-        "cep": "14092-310",
-        "address": "Rua Francisca Martins",
-        "addressNumber": "198",
-        "neighborhood": "Jardim Zara",
-        "city": "Ribeirão Preto"
-      },
-      "id": 4
-    },
-    {
-      "name": "Gabriel Barboza",
-      "cpf": "719.246.918-24",
-      "email": "gabriel@barboza.com",
-      "endereco": {
-        "cep": "14050-500",
-        "address": "Rua Visconde de Taunay",
-        "addressNumber": "45",
-        "neighborhood": "Vila Tibério",
-        "city": "Ribeirão Preto"
-      },
-      "id": 5
-    },
-    {
       "name": "João Vitor",
       "cpf": "345.973.057-07",
       "email": "jsoareez@gmail.com",
@@ -40,17 +14,43 @@
       "id": 8
     },
     {
-      "name": "Ademilton Cesar",
-      "cpf": "170.129.487-09",
-      "email": "ademilton@cesar.com",
+      "name": "Vitor Nunes",
+      "cpf": "765.218.915-64",
+      "email": "vitor@vitor.com",
+      "endereco": {
+        "cep": "14050-400",
+        "address": "Rua Conselheiro Dantas",
+        "addressNumber": "462",
+        "neighborhood": "Vila Tibério",
+        "city": "Ribeirão Preto"
+      },
+      "id": 10
+    },
+    {
+      "name": "Gabriel Barboza",
+      "cpf": "412.412.412-41",
+      "email": "gabriel@barboza.com",
       "endereco": {
         "cep": "14092-500",
         "address": "Rua Doutor Jacy Chaves",
-        "addressNumber": "54",
+        "addressNumber": "10",
         "neighborhood": "Residencial e Comercial Palmares",
         "city": "Ribeirão Preto"
       },
-      "id": 9
+      "id": 11
+    },
+    {
+      "name": "Ademilton Cesar",
+      "cpf": "219.873.621-66",
+      "email": "admilton@ademilton.com",
+      "endereco": {
+        "cep": "14090-900",
+        "address": "Avenida Treze de Maio 45",
+        "addressNumber": "84",
+        "neighborhood": "Jardim Paulistano",
+        "city": "Ribeirão Preto"
+      },
+      "id": 12
     }
   ]
 }

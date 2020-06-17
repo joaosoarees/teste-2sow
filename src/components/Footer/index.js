@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * Rodapé da página + estilização
+ */
+
 import { Typography, makeStyles, Container } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({

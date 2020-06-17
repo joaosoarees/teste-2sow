@@ -1,5 +1,6 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
+// Reducer para validar se o usuário esta ou não autenticado
 const INITIAL_STATE = {
   isAuthenticated: false,
 };

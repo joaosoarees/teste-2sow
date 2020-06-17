@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 
 import {
   Avatar, Button, CssBaseline, TextField, Grid,
-  Typography, makeStyles, Container,
-  AppBar, Toolbar
+  Typography, Container, AppBar, Toolbar
 } from '@material-ui/core';
 import { PersonAdd } from '@material-ui/icons';
 
+import { useStyles, useStylesBar } from './styles';
 import axios from 'axios';
 import api from '../../services/api';
 import swal from 'sweetalert';
@@ -15,64 +15,12 @@ import { cpfMask } from '../../utils/cpfMask';
 import { cepMask } from '../../utils/cepMask';
 import Footer from '../../components/Footer';
 
-const useStyles = makeStyles((theme) => ({
-  page: {
-    minHeight: '100vh',
-    flexDirection: 'column',
-    display: 'flex',
-  },
-  main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
-  },
-  paper: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  footer: {
-    marginTop: 'auto',
-    padding: theme.spacing(6),
-  },
-}));
-
-const useStylesBar = makeStyles(() => ({
-  bar: {
-    marginBottom: '60px',
-  },
-  button: {
-    marginLeft: '50px',
-    color: '#fff',
-    fontWeight: 900,
-  },
-  title: {
-    flexGrow: 1,
-    color: '#fff',
-  },
-  text: {
-    color: '#fff',
-    fontWeight: 500,
-  },
-}));
-
 export default function Form() {
   const classes = useStyles();
   const topClasses = useStylesBar();
   const history = useHistory();
-  const token = localStorage.getItem('token');
 
+  // Hook para armazenar e alterar estado
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
@@ -82,10 +30,12 @@ export default function Form() {
   const [neighborhood, setNeighborhood] = useState('');
   const [city, setCity] = useState('');
 
+  // Foca em um input com id declarado
   function getFocus(id) {
     return (document.getElementById(id).focus());
   };
 
+  // Função para chamar o webservice ViaCEP e inserir os dados do cep informado nos campos de endereço
   async function getViaCep() {
     const viaCep = await axios.get(`http://viacep.com.br/ws/${cep}/json/unicode/`);
 
@@ -93,9 +43,6 @@ export default function Form() {
       setNeighborhood(viaCep.data.bairro);
       setCity(viaCep.data.localidade);
       setAddress(viaCep.data.logradouro);
-
-      getFocus('addressNumber');
-
     } else if (!viaCep.data.cep) {
         setCep('');
         setAddress('');
@@ -104,7 +51,6 @@ export default function Form() {
         setCity('')
 
         swal("CEP não encontrado!", "Verifique seu CEP e tente novamente.");
-        getFocus('cep');
     } else if (cep === '') {
         setNeighborhood('');
         setCity('');
@@ -112,10 +58,13 @@ export default function Form() {
     };
   };
 
+  // Condição para que a função getViaCep seja executada
   if (cep.length === 9 || cep.length === 8) {
     getViaCep();
-  };
+    getFocus('addressNumber');
+  } 
 
+  // Função para cadastrar um novo usuário no db.json
   async function handleRegister(e) {
     e.preventDefault();
 
@@ -152,16 +101,16 @@ export default function Form() {
     setCity('');
   };
 
+  // Função para deslogar 
   const handleLogout = () => {
-    localStorage.clear();
     history.push('/');
   };
-
+  // Envia o usuário para a tela de usuários cadastrados
   const handleUsers = () => {
     history.push('/usuarios');
   };
 
-  return ( token && 
+  return (
     <>
       <div className={classes.page}>
         <AppBar position="static" className={topClasses.bar}>
