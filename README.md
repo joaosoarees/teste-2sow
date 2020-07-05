@@ -1,5 +1,6 @@
 
 <p align="center">
+  
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/joaosoarees/teste-2sow">
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/joaosoarees/teste-2sow">
@@ -14,8 +15,10 @@
 </p>
 
 <p align="center">
-  O desafio para a vaga é um sistema de cadastro de usuários
+  O desafio para a vaga é um sistema de cadastro de usuários  
 </p>
+
+<img src=".gitimages/users.png" />
 
 ## Tecnologias
 
